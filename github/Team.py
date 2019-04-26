@@ -152,6 +152,15 @@ class Team(github.GithubObject.CompletableGithubObject):
         """
         self._completeIfNotSet(self._privacy)
         return self._privacy.value
+        
+    @property
+    def parent(self):
+        """
+        :type: :class:`github.Team.Team`
+        """
+        self._completeIfNotSet(self._parent)
+        return self._parent.value
+
 
     def add_to_members(self, member):
         """
@@ -373,6 +382,7 @@ class Team(github.GithubObject.CompletableGithubObject):
         self._url = github.GithubObject.NotSet
         self._organization = github.GithubObject.NotSet
         self._privacy = github.GithubObject.NotSet
+        self._parent = github.GithubObject.NotSet
 
     def _useAttributes(self, attributes):
         if "id" in attributes:  # pragma no branch
@@ -399,3 +409,5 @@ class Team(github.GithubObject.CompletableGithubObject):
             self._organization = self._makeClassAttribute(github.Organization.Organization, attributes["organization"])
         if "privacy" in attributes:  # pragma no branch
             self._privacy = self._makeStringAttribute(attributes["privacy"])
+        if "parent" in attributes:  #pragma no branch
+            self._parent = self._makeClassAttribute(github.Team.Team, attributes["parent"])
