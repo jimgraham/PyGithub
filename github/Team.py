@@ -300,6 +300,18 @@ class Team(github.GithubObject.CompletableGithubObject):
             None
         )
 
+    def get_child_teams(self):
+        """
+        :calls: `GET /teams/:id/teams <http://developer.github.com/v3/orgs/teams>`_
+        :rtype: :class:`github.PaginatedList.PaginatedList` of :class:`github.Team.Team`
+        """
+        return github.PaginatedList.PaginatedList(
+            github.Team.Team,
+            self._requester,
+            self.url + "/teams",
+            None
+        )
+
     def has_in_members(self, member):
         """
         :calls: `GET /teams/:id/members/:user <http://developer.github.com/v3/orgs/teams>`_
